@@ -75,8 +75,9 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
     }
     
     func inititlizeBarButtons() {
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(onTouchCancelButton))
-        self.navigationItem.leftBarButtonItem = cancelButton
+        let lbbi = UIBarButtonItem(image: UIImage(named:"back-icon"), style: .done, target: self, action: #selector(onBackTapped))
+        lbbi.tintColor = .white
+        self.navigationItem.leftBarButtonItem = lbbi
         
         if multiSelectEnabled {
             let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(onTouchDoneButton))
@@ -327,15 +328,36 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
     // MARK: - Button Actions
     
     @objc func onTouchCancelButton() {
-        dismiss(animated: true, completion: {
+        let completionHandler: ()->Void = {
             self.contactDelegate?.epContactPicker(self, didCancel: NSError(domain: "EPContactPickerErrorDomain", code: 2, userInfo: [ NSLocalizedDescriptionKey: "User Canceled Selection"]))
-        })
+        }
+        
+        if self.resultSearchController.isActive {
+            self.resultSearchController.dismiss(animated: true) {
+                self.dismiss(animated: true, completion: completionHandler)
+            }
+        } else {
+            dismiss(animated: true, completion: completionHandler)
+        }
     }
     
     @objc func onTouchDoneButton() {
-        dismiss(animated: true, completion: {
+        let completionHandler: ()->Void = {
             self.contactDelegate?.epContactPicker(self, didSelectMultipleContacts: self.selectedContacts)
-        })
+        }
+        
+        dismiss(animated: true, completion: completionHandler)
+    }
+    
+    // For single contact selection only
+    @objc func onBackTapped() {
+        if self.resultSearchController.isActive {
+            self.resultSearchController.dismiss(animated: true) {
+                self.navigationController?.popViewController(animated: true)
+            }
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     // MARK: - Search Actions
