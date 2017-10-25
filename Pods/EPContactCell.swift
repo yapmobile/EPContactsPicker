@@ -33,9 +33,10 @@ class EPContactCell: UITableViewCell {
     
     func updateInitialsColorForIndexPath(_ indexpath: IndexPath) {
         //Applies color to Initial Label
-        let colorArray = [EPGlobalConstants.Colors.amethystColor,EPGlobalConstants.Colors.asbestosColor,EPGlobalConstants.Colors.emeraldColor,EPGlobalConstants.Colors.peterRiverColor,EPGlobalConstants.Colors.pomegranateColor,EPGlobalConstants.Colors.pumpkinColor,EPGlobalConstants.Colors.sunflowerColor]
-        let randomValue = (indexpath.row + indexpath.section) % colorArray.count
-        contactInitialLabel.backgroundColor = colorArray[randomValue]
+//        let colorArray = [EPGlobalConstants.Colors.amethystColor,EPGlobalConstants.Colors.asbestosColor,EPGlobalConstants.Colors.emeraldColor,EPGlobalConstants.Colors.peterRiverColor,EPGlobalConstants.Colors.pomegranateColor,EPGlobalConstants.Colors.pumpkinColor,EPGlobalConstants.Colors.sunflowerColor]
+//        let randomValue = (indexpath.row + indexpath.section) % colorArray.count
+//        contactInitialLabel.backgroundColor = colorArray[randomValue]
+        contactInitialLabel.backgroundColor = UIColor(red: (85/255), green: (85/255), blue: (85/255), alpha: 1.0)
     }
  
     func updateContactsinUI(_ contact: EPContact, indexPath: IndexPath, subtitleType: SubtitleCellValue) {
