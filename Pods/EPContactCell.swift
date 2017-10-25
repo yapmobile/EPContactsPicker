@@ -57,6 +57,8 @@ class EPContactCell: UITableViewCell {
     
     func updateSubtitleBasedonType(_ subtitleType: SubtitleCellValue , contact: EPContact) {
         
+        var shouldDisableCell = false
+        
         switch subtitleType {
             
         case SubtitleCellValue.phoneNumber:
@@ -70,6 +72,7 @@ class EPContactCell: UITableViewCell {
             }
             else {
                 self.contactDetailTextLabel.text = EPGlobalConstants.Strings.phoneNumberNotAvaialable
+                shouldDisableCell = true
             }
         case SubtitleCellValue.email:
             let emailCount = contact.emails.count
@@ -82,11 +85,20 @@ class EPContactCell: UITableViewCell {
             }
             else {
                 self.contactDetailTextLabel.text = EPGlobalConstants.Strings.emailNotAvaialable
+                shouldDisableCell = true
             }
         case SubtitleCellValue.birthday:
             self.contactDetailTextLabel.text = contact.birthdayString
         case SubtitleCellValue.organization:
             self.contactDetailTextLabel.text = contact.company
+        }
+        
+        if shouldDisableCell {
+            self.contentView.alpha = 0.3
+            self.isUserInteractionEnabled = false
+        } else {
+            self.contentView.alpha = 1
+            self.isUserInteractionEnabled = true
         }
     }
 }
