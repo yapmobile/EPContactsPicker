@@ -297,11 +297,11 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
         else {
             //Single selection code
 			resultSearchController.isActive = false
-			self.dismiss(animated: true, completion: {
+//            self.dismiss(animated: true, completion: {
 				DispatchQueue.main.async {
 					self.contactDelegate?.epContactPicker(self, didSelectContact: selectedContact)
 				}
-			})
+//            })
         }
     }
     
