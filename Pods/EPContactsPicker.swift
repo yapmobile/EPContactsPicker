@@ -174,6 +174,7 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
                     if  (!granted ){
                         DispatchQueue.main.async(execute: { () -> Void in
                             completion([], error! as NSError?)
+                            self.contactDelegate?.epContactPicker(self, didContactFetchFailed: error! as NSError)
                         })
                     }
                     else{
